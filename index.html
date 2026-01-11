@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAZUKI – KI-Beratung für produzierende Unternehmen</title>
+    <meta name="description" content="KI-Implementierung für Drehereien, Fräsereien und Fertigungsbetriebe. 40 Jahre Praxiserfahrung trifft auf moderne KI-Technologie.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-tertiary: #1a1a25;
+            --accent-primary: #00f0ff;
+            --accent-secondary: #7b61ff;
+            --accent-glow: rgba(0, 240, 255, 0.15);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --text-muted: #606070;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --gradient-accent: linear-gradient(135deg, #00f0ff 0%, #7b61ff 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background Grid */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        .bg-glow-1 {
+            top: -200px;
+            right: -100px;
+            background: var(--accent-primary);
+        }
+
+        .bg-glow-2 {
+            bottom: -200px;
+            left: -100px;
+            background: var(--accent-secondary);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .logo-main {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-sub {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: -2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 0.75rem 1.5rem;
+            background: var(--gradient-accent);
+            border: none;
+            border-radius: 4px;
+            color: var(--bg-primary);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0, 240, 255, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 4rem 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .hero-tag-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero h1 span {
+            display: block;
+        }
+
+        .hero h1 .highlight {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: var(--gradient-accent);
+            border: none;
+            border-radius: 4px;
+            color: var(--bg-primary);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 50px rgba(0, 240, 255, 0.35);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-primary);
+            background: rgba(0, 240, 255, 0.05);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            gap: 4rem;
+            margin-top: 5rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 8rem 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            max-width: 700px;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-primary);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Problem Section */
+        .problem-section {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .problem-card {
+            padding: 2rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .problem-card:hover {
+            border-color: rgba(0, 240, 255, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .problem-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-glow);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .problem-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .problem-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            position: relative;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .service-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--bg-tertiary);
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            line-height: 1;
+            -webkit-text-stroke: 1px var(--border-subtle);
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .service-features {
+            list-style: none;
+            position: relative;
+        }
+
+        .service-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-features li::before {
+            content: '→';
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        /* USP Section */
+        .usp-section {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .usp-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .usp-text h2 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .usp-text h2 span {
+            color: var(--accent-primary);
+        }
+
+        .usp-text p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .usp-list {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .usp-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+        }
+
+        .usp-list li .check {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-glow);
+            border-radius: 50%;
+            color: var(--accent-primary);
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .usp-visual {
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .usp-card-stack {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .usp-floating-card {
+            position: absolute;
+            padding: 1.5rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .usp-floating-card.card-1 {
+            top: 0;
+            left: 0;
+            z-index: 3;
+            transform: rotate(-3deg);
+        }
+
+        .usp-floating-card.card-2 {
+            top: 80px;
+            right: 0;
+            z-index: 2;
+            transform: rotate(2deg);
+        }
+
+        .usp-floating-card.card-3 {
+            bottom: 0;
+            left: 40px;
+            z-index: 1;
+            transform: rotate(-1deg);
+        }
+
+        .usp-floating-card h4 {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .usp-floating-card p {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 10rem 4rem;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info > p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .contact-item-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-glow);
+            border-radius: 8px;
+            color: var(--accent-primary);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-item-text h4 {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-item-text p,
+        .contact-item-text a {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .contact-item-text a:hover {
+            color: var(--accent-primary);
+        }
+
+        .contact-form {
+            background: var(--bg-primary);
+            padding: 3rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient-accent);
+            border: none;
+            border-radius: 6px;
+            color: var(--bg-primary);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0, 240, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem;
+            border-top: 1px solid var(--border-subtle);
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-brand .logo-main {
+            font-size: 1.4rem;
+        }
+
+        .footer-legal {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            nav {
+                padding: 1.25rem 2rem;
+            }
+
+            .hero {
+                padding: 7rem 2rem 3rem;
+            }
+
+            section {
+                padding: 5rem 2rem;
+            }
+
+            .usp-content {
+                grid-template-columns: 1fr;
+            }
+
+            .usp-visual {
+                display: none;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-bar {
+                gap: 2rem;
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links,
+            .nav-cta {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-description {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .problem-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                padding: 2rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <span class="logo-main">JAZUKI</span>
+            <span class="logo-sub">powered by PEKLA</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#leistungen">Leistungen</a></li>
+            <li><a href="#warum">Warum JAZUKI</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+        <button class="nav-cta">Gespräch vereinbaren</button>
+        <button class="mobile-menu-btn">☰</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-tag">
+                <span class="hero-tag-dot"></span>
+                KI-Beratung für produzierende Unternehmen
+            </div>
+            <h1>
+                <span>KI verstehen.</span>
+                <span>KI einführen.</span>
+                <span class="highlight">KI nutzen.</span>
+            </h1>
+            <p class="hero-description">
+                Von der Dreherei bis zur Fräserei: Ich bringe KI dorthin, wo sie echten Mehrwert schafft – 
+                auf den Shopfloor. Mit 40 Jahren Fertigungserfahrung spreche ich beide Sprachen: 
+                die der Maschinen und die der Menschen, die sie bedienen.
+            </p>
+            <div class="hero-buttons">
+                <a href="#kontakt" class="btn-primary">
+                    Kostenlose Erstberatung
+                    <span>→</span>
+                </a>
+                <a href="#leistungen" class="btn-secondary">
+                    Leistungen entdecken
+                </a>
+            </div>
+            <div class="stats-bar">
+                <div class="stat">
+                    <span class="stat-number">40+</span>
+                    <span class="stat-label">Jahre Fertigungserfahrung</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Praxisorientiert</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">KMU</span>
+                    <span class="stat-label">Fokus auf Mittelstand</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem-section">
+        <div class="section-header">
+            <span class="section-tag">// Die Herausforderung</span>
+            <h2 class="section-title">KI ist überall. Aber wie kommt sie in Ihre Fertigung?</h2>
+            <p class="section-description">
+                Die meisten KI-Berater kennen Algorithmen – aber nicht den Unterschied zwischen einer 
+                CNC-Drehmaschine und einer Fräse. Das führt zu Projekten, die auf dem Papier gut aussehen, 
+                aber in der Praxis scheitern.
+            </p>
+        </div>
+        <div class="problem-grid">
+            <div class="problem-card">
+                <div class="problem-icon">⚠️</div>
+                <h3>Berater ohne Shopfloor-Erfahrung</h3>
+                <p>Sie erklären KI – aber verstehen nicht, wie Ihre Fertigung funktioniert. 
+                Das Ergebnis: Lösungen, die am Alltag vorbeigehen.</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-icon">🚫</div>
+                <h3>Mitarbeiter werden nicht mitgenommen</h3>
+                <p>Die beste KI-Lösung scheitert, wenn das Team sie nicht annimmt. 
+                Angst und Skepsis blockieren den Fortschritt.</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-icon">💸</div>
+                <h3>Teure Pilotprojekte ohne ROI</h3>
+                <p>Große Versprechen, hohe Kosten, wenig Ergebnis. 
+                KI-Projekte müssen sich rechnen – von Anfang an.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="leistungen">
+        <div class="section-header">
+            <span class="section-tag">// Leistungen</span>
+            <h2 class="section-title">Von der Analyse bis zur Umsetzung</h2>
+            <p class="section-description">
+                Keine PowerPoint-Schlachten. Konkrete Schritte, die Ihre Fertigung voranbringen.
+            </p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <span class="service-number">01</span>
+                <h3>KI-Readiness-Check</h3>
+                <p>Wo macht KI bei Ihnen wirklich Sinn? Gemeinsam analysieren wir Ihre Prozesse und finden die Hebel mit dem größten Potenzial.</p>
+                <ul class="service-features">
+                    <li>Vor-Ort-Analyse Ihrer Fertigung</li>
+                    <li>Identifikation von Quick Wins</li>
+                    <li>Konkrete Handlungsempfehlungen</li>
+                    <li>ROI-Berechnung für jeden Ansatz</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <span class="service-number">02</span>
+                <h3>KI-Implementierung</h3>
+                <p>Von der Idee zur laufenden Lösung. Ich begleite Sie durch den gesamten Prozess – ohne Fachchinesisch, mit klarem Fokus.</p>
+                <ul class="service-features">
+                    <li>Predictive Maintenance für Ihre Maschinen</li>
+                    <li>Qualitätskontrolle mit Bildverarbeitung</li>
+                    <li>Prozessoptimierung mit KI</li>
+                    <li>Integration in bestehende Systeme</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <span class="service-number">03</span>
+                <h3>Mitarbeiter-Workshops</h3>
+                <p>KI-Einführung gelingt nur mit dem Team. Ich hole Ihre Mitarbeiter ab – von der Skepsis zur Begeisterung.</p>
+                <ul class="service-features">
+                    <li>KI-Grundlagen verständlich erklärt</li>
+                    <li>Hands-on: ChatGPT & Co. im Arbeitsalltag</li>
+                    <li>Ängste abbauen, Chancen aufzeigen</li>
+                    <li>Praxisübungen mit echten Use Cases</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <span class="service-number">04</span>
+                <h3>KI-Grundkurs für Jedermann</h3>
+                <p>Sie wollen KI verstehen – ohne Informatik-Studium? Mein Grundkurs macht Sie fit für die KI-Zukunft.</p>
+                <ul class="service-features">
+                    <li>Was ist KI wirklich?</li>
+                    <li>Praktische Anwendungen im Alltag</li>
+                    <li>Tools die sofort helfen</li>
+                    <li>Keine Vorkenntnisse nötig</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- USP Section -->
+    <section id="warum" class="usp-section">
+        <div class="usp-content">
+            <div class="usp-text">
+                <span class="section-tag">// Warum JAZUKI</span>
+                <h2>40 Jahre Fertigung.<br><span>Jetzt mit KI.</span></h2>
+                <p>
+                    Ich habe an der Drehmaschine gestanden, Schichten geleitet, einen Fertigungsbetrieb 
+                    20 Jahre lang geführt. Ich weiß, wie Späne fliegen, wie Termine drücken, 
+                    wie ein Team funktioniert.
+                </p>
+                <p>
+                    Jetzt bringe ich dieses Wissen mit KI zusammen. Nicht als Theoretiker, 
+                    sondern als jemand, der beide Welten versteht.
+                </p>
+                <ul class="usp-list">
+                    <li>
+                        <span class="check">✓</span>
+                        <span>Von der Maschine in die Beratung – echter Praxisbezug</span>
+                    </li>
+                    <li>
+                        <span class="check">✓</span>
+                        <span>Ich spreche die Sprache Ihrer Mitarbeiter</span>
+                    </li>
+                    <li>
+                        <span class="check">✓</span>
+                        <span>Fokus auf Drehereien, Fräsereien, Stanzbetriebe</span>
+                    </li>
+                    <li>
+                        <span class="check">✓</span>
+                        <span>Lösungen die sich rechnen – garantiert</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="usp-visual">
+                <div class="usp-card-stack">
+                    <div class="usp-floating-card card-1">
+                        <h4>// Erfahrung</h4>
+                        <p>20 Jahre eigener Fertigungsbetrieb</p>
+                    </div>
+                    <div class="usp-floating-card card-2">
+                        <h4>// Praxis</h4>
+                        <p>Vom Dreher zum KI-Berater</p>
+                    </div>
+                    <div class="usp-floating-card card-3">
+                        <h4>// Fokus</h4>
+                        <p>KMU im produzierenden Gewerbe</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Bereit für KI in Ihrer Fertigung?</h2>
+        <p>
+            Lassen Sie uns in einem kostenlosen Erstgespräch herausfinden, 
+            wo KI bei Ihnen den größten Hebel hat.
+        </p>
+        <a href="#kontakt" class="btn-primary">
+            Jetzt Termin vereinbaren
+            <span>→</span>
+        </a>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="kontakt" class="contact-section">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h2>Kontakt aufnehmen</h2>
+                <p>
+                    Erzählen Sie mir von Ihrer Fertigung. In einem unverbindlichen Gespräch 
+                    finden wir heraus, ob und wie KI Ihnen helfen kann.
+                </p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-item-icon">✉</div>
+                        <div class="contact-item-text">
+                            <h4>E-Mail</h4>
+                            <a href="mailto:info@jazuki.de">info@jazuki.de</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📞</div>
+                        <div class="contact-item-text">
+                            <h4>Telefon</h4>
+                            <a href="tel:+4915123456789">+49 151 234 567 89</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📍</div>
+                        <div class="contact-item-text">
+                            <h4>Standort</h4>
+                            <p>Villingen-Schwenningen<br>Baden-Württemberg</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="company">Unternehmen</label>
+                    <input type="text" id="company" name="company">
+                </div>
+                <div class="form-group">
+                    <label for="email">E-Mail</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Nachricht</label>
+                    <textarea id="message" name="message" placeholder="Erzählen Sie mir kurz von Ihrer Fertigung und was Sie interessiert..."></textarea>
+                </div>
+                <button type="submit" class="form-submit">Nachricht senden</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="logo-main">JAZUKI</span>
+                <span class="footer-legal">Ein Angebot der PEKLA Unternehmensberatung UG</span>
+            </div>
+            <div class="footer-links">
+                <a href="impressum.html">Impressum</a>
+                <a href="datenschutz.html">Datenschutz</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth reveal on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .problem-card, .stat').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Parallax effect for background glows
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            document.querySelector('.bg-glow-1').style.transform = 
+                `translate(${x * 30}px, ${y * 30}px)`;
+            document.querySelector('.bg-glow-2').style.transform = 
+                `translate(${-x * 30}px, ${-y * 30}px)`;
+        });
+    </script>
+</body>
+</html>
