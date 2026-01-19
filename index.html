@@ -97,27 +97,12 @@
 
         .logo {
             display: flex;
-            flex-direction: column;
-            gap: 0;
+            align-items: center;
         }
 
-        .logo-main {
-            font-family: 'Space Mono', monospace;
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: 0.3em;
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .logo-sub {
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            margin-top: -2px;
+        .logo svg {
+            height: 50px;
+            width: auto;
         }
 
         .nav-links {
@@ -153,24 +138,6 @@
 
         .nav-links a:hover::after {
             width: 100%;
-        }
-
-        .nav-cta {
-            padding: 0.75rem 1.5rem;
-            background: var(--gradient-accent);
-            border: none;
-            border-radius: 4px;
-            color: var(--bg-primary);
-            font-family: 'Outfit', sans-serif;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(0, 240, 255, 0.3);
         }
 
         /* Hero Section */
@@ -290,23 +257,44 @@
             background: rgba(0, 240, 255, 0.05);
         }
 
-        /* Stats Bar */
+        /* Stats Bar - jetzt als Karten */
         .stats-bar {
-            display: flex;
-            gap: 4rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
             margin-top: 5rem;
             padding-top: 3rem;
             border-top: 1px solid var(--border-subtle);
         }
 
-        .stat {
+        .stat-card {
+            padding: 1.5rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(0, 240, 255, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-glow);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
         }
 
         .stat-number {
             font-family: 'Space Mono', monospace;
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 700;
             background: var(--gradient-accent);
             -webkit-background-clip: text;
@@ -622,132 +610,80 @@
             margin: 0 auto 3rem;
         }
 
-        /* Contact Section */
+        /* Contact Section - ohne Formular */
         .contact-section {
             background: var(--bg-secondary);
             border-top: 1px solid var(--border-subtle);
         }
 
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
         }
 
-        .contact-info h2 {
+        .contact-content h2 {
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
         }
 
-        .contact-info > p {
+        .contact-content > p {
             color: var(--text-secondary);
             font-size: 1.1rem;
             margin-bottom: 3rem;
         }
 
-        .contact-details {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
         }
 
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
+        .contact-card {
+            padding: 2rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
         }
 
-        .contact-item-icon {
-            width: 44px;
-            height: 44px;
+        .contact-card:hover {
+            border-color: rgba(0, 240, 255, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .contact-card-icon {
+            width: 56px;
+            height: 56px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: var(--accent-glow);
-            border-radius: 8px;
-            color: var(--accent-primary);
-            font-size: 1.1rem;
-            flex-shrink: 0;
+            border-radius: 12px;
+            margin: 0 auto 1.25rem;
+            font-size: 1.5rem;
         }
 
-        .contact-item-text h4 {
+        .contact-card h4 {
             font-size: 0.85rem;
             color: var(--text-muted);
             font-weight: 500;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
-        .contact-item-text p,
-        .contact-item-text a {
+        .contact-card p,
+        .contact-card a {
             font-size: 1.1rem;
             color: var(--text-primary);
             text-decoration: none;
         }
 
-        .contact-item-text a:hover {
+        .contact-card a:hover {
             color: var(--accent-primary);
-        }
-
-        .contact-form {
-            background: var(--bg-primary);
-            padding: 3rem;
-            border-radius: 12px;
-            border: 1px solid var(--border-subtle);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 1rem;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-subtle);
-            border-radius: 6px;
-            color: var(--text-primary);
-            font-family: 'Outfit', sans-serif;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent-primary);
-        }
-
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .form-submit {
-            width: 100%;
-            padding: 1rem;
-            background: var(--gradient-accent);
-            border: none;
-            border-radius: 6px;
-            color: var(--bg-primary);
-            font-family: 'Outfit', sans-serif;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .form-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(0, 240, 255, 0.3);
         }
 
         /* Footer */
@@ -772,8 +708,9 @@
             gap: 0.5rem;
         }
 
-        .footer-brand .logo-main {
-            font-size: 1.4rem;
+        .footer-brand svg {
+            height: 35px;
+            width: auto;
         }
 
         .footer-legal {
@@ -829,19 +766,18 @@
                 display: none;
             }
 
-            .contact-grid {
+            .contact-cards {
                 grid-template-columns: 1fr;
             }
 
             .stats-bar {
-                gap: 2rem;
-                flex-wrap: wrap;
+                grid-template-columns: 1fr;
+                gap: 1rem;
             }
         }
 
         @media (max-width: 768px) {
-            .nav-links,
-            .nav-cta {
+            .nav-links {
                 display: none;
             }
 
@@ -865,11 +801,6 @@
             .btn-secondary {
                 width: 100%;
                 justify-content: center;
-            }
-
-            .stats-bar {
-                flex-direction: column;
-                gap: 1.5rem;
             }
 
             .services-grid {
@@ -900,15 +831,49 @@
     <!-- Navigation -->
     <nav>
         <div class="logo">
-            <span class="logo-main">JAZUKI</span>
-            <span class="logo-sub">powered by PEKLA</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+              <defs>
+                <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#00f0ff"/>
+                  <stop offset="100%" style="stop-color:#7b61ff"/>
+                </linearGradient>
+                <linearGradient id="netzGrad" gradientUnits="userSpaceOnUse" x1="7" y1="45" x2="83" y2="45">
+                  <stop offset="0%" style="stop-color:#00f0ff"/>
+                  <stop offset="100%" style="stop-color:#7b61ff"/>
+                </linearGradient>
+              </defs>
+              <g stroke="url(#netzGrad)" stroke-width="2" fill="none" stroke-linecap="round">
+                <ellipse cx="45" cy="45" rx="38" ry="32"/>
+                <circle cx="25" cy="35" r="5"/>
+                <circle cx="25" cy="55" r="5"/>
+                <circle cx="45" cy="25" r="5"/>
+                <circle cx="45" cy="45" r="6" stroke-width="2.5"/>
+                <circle cx="45" cy="65" r="5"/>
+                <circle cx="65" cy="35" r="5"/>
+                <circle cx="65" cy="55" r="5"/>
+                <line x1="30" y1="35" x2="39" y2="27"/>
+                <line x1="30" y1="35" x2="39" y2="43"/>
+                <line x1="30" y1="55" x2="39" y2="47"/>
+                <line x1="30" y1="55" x2="39" y2="63"/>
+                <line x1="51" y1="27" x2="60" y2="35"/>
+                <line x1="51" y1="45" x2="60" y2="37"/>
+                <line x1="51" y1="45" x2="60" y2="53"/>
+                <line x1="51" y1="63" x2="60" y2="55"/>
+              </g>
+              <g transform="skewX(-8)">
+                <text x="115" y="60" font-family="Arial Black, Impact, sans-serif" font-size="48" font-weight="900" font-style="italic" fill="url(#logoGrad)">JAZUKI</text>
+                <line x1="98" y1="35" x2="118" y2="35" stroke="#00f0ff" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+                <line x1="95" y1="46" x2="112" y2="46" stroke="#00f0ff" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+                <line x1="100" y1="57" x2="113" y2="57" stroke="#00f0ff" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+              </g>
+              <text x="115" y="82" font-family="Arial, sans-serif" font-size="10" letter-spacing="2" fill="#606070">POWERED BY PEKLA</text>
+            </svg>
         </div>
         <ul class="nav-links">
             <li><a href="#leistungen">Leistungen</a></li>
             <li><a href="#warum">Warum JAZUKI</a></li>
             <li><a href="#kontakt">Kontakt</a></li>
         </ul>
-        <button class="nav-cta">Gespräch vereinbaren</button>
         <button class="mobile-menu-btn">☰</button>
     </nav>
 
@@ -925,31 +890,34 @@
                 <span class="highlight">KI nutzen.</span>
             </h1>
             <p class="hero-description">
-                Von der Dreherei bis zur Fräserei: Ich bringe KI dorthin, wo sie echten Mehrwert schafft – 
-                auf den Shopfloor. Mit 40 Jahren Fertigungserfahrung spreche ich beide Sprachen: 
-                die der Maschinen und die der Menschen, die sie bedienen.
+                Ich helfe Drehereien, Fräsereien und Fertigungsbetrieben dabei, KI sinnvoll einzusetzen. 
+                Nicht mit Theorie, sondern mit 40 Jahren Erfahrung aus der Fertigung. 
+                Ich kenne die Maschinen, die Abläufe und die Menschen, die damit arbeiten.
             </p>
             <div class="hero-buttons">
                 <a href="#kontakt" class="btn-primary">
-                    Kostenlose Erstberatung
+                    Kontakt aufnehmen
                     <span>→</span>
                 </a>
                 <a href="#leistungen" class="btn-secondary">
-                    Leistungen entdecken
+                    Was ich anbiete
                 </a>
             </div>
             <div class="stats-bar">
-                <div class="stat">
+                <div class="stat-card">
+                    <div class="stat-icon">🔧</div>
                     <span class="stat-number">40+</span>
-                    <span class="stat-label">Jahre Fertigungserfahrung</span>
+                    <span class="stat-label">Jahre in der Fertigung</span>
                 </div>
-                <div class="stat">
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
                     <span class="stat-number">100%</span>
-                    <span class="stat-label">Praxisorientiert</span>
+                    <span class="stat-label">Aus der Praxis</span>
                 </div>
-                <div class="stat">
+                <div class="stat-card">
+                    <div class="stat-icon">🏭</div>
                     <span class="stat-number">KMU</span>
-                    <span class="stat-label">Fokus auf Mittelstand</span>
+                    <span class="stat-label">Mein Fokus</span>
                 </div>
             </div>
         </div>
@@ -958,32 +926,31 @@
     <!-- Problem Section -->
     <section class="problem-section">
         <div class="section-header">
-            <span class="section-tag">// Die Herausforderung</span>
+            <span class="section-tag">// Das Problem</span>
             <h2 class="section-title">KI ist überall. Aber wie kommt sie in Ihre Fertigung?</h2>
             <p class="section-description">
-                Die meisten KI-Berater kennen Algorithmen – aber nicht den Unterschied zwischen einer 
-                CNC-Drehmaschine und einer Fräse. Das führt zu Projekten, die auf dem Papier gut aussehen, 
-                aber in der Praxis scheitern.
+                Die meisten KI-Berater haben noch nie an einer Maschine gestanden. 
+                Sie kennen Algorithmen, aber nicht den Unterschied zwischen Drehen und Fräsen.
             </p>
         </div>
         <div class="problem-grid">
             <div class="problem-card">
                 <div class="problem-icon">⚠️</div>
-                <h3>Berater ohne Shopfloor-Erfahrung</h3>
-                <p>Sie erklären KI – aber verstehen nicht, wie Ihre Fertigung funktioniert. 
-                Das Ergebnis: Lösungen, die am Alltag vorbeigehen.</p>
+                <h3>Berater ohne Fertigungserfahrung</h3>
+                <p>Viele reden über KI, aber verstehen nicht, wie Ihr Alltag aussieht. 
+                Das führt zu Lösungen, die nicht funktionieren.</p>
             </div>
             <div class="problem-card">
                 <div class="problem-icon">🚫</div>
-                <h3>Mitarbeiter werden nicht mitgenommen</h3>
-                <p>Die beste KI-Lösung scheitert, wenn das Team sie nicht annimmt. 
-                Angst und Skepsis blockieren den Fortschritt.</p>
+                <h3>Mitarbeiter werden übergangen</h3>
+                <p>Neue Technik von oben herab einführen funktioniert nicht. 
+                Wenn das Team nicht mitzieht, scheitert jedes Projekt.</p>
             </div>
             <div class="problem-card">
                 <div class="problem-icon">💸</div>
-                <h3>Teure Pilotprojekte ohne ROI</h3>
-                <p>Große Versprechen, hohe Kosten, wenig Ergebnis. 
-                KI-Projekte müssen sich rechnen – von Anfang an.</p>
+                <h3>Viel Geld, wenig Ergebnis</h3>
+                <p>Große Versprechen, teure Projekte, und am Ende bleibt wenig übrig. 
+                Das muss nicht sein.</p>
             </div>
         </div>
     </section>
@@ -991,54 +958,54 @@
     <!-- Services Section -->
     <section id="leistungen">
         <div class="section-header">
-            <span class="section-tag">// Leistungen</span>
+            <span class="section-tag">// Was ich anbiete</span>
             <h2 class="section-title">Von der Analyse bis zur Umsetzung</h2>
             <p class="section-description">
-                Keine PowerPoint-Schlachten. Konkrete Schritte, die Ihre Fertigung voranbringen.
+                Keine komplizierten Präsentationen. Klare Schritte, verständlich erklärt.
             </p>
         </div>
         <div class="services-grid">
             <div class="service-card">
                 <span class="service-number">01</span>
-                <h3>KI-Readiness-Check</h3>
-                <p>Wo macht KI bei Ihnen wirklich Sinn? Gemeinsam analysieren wir Ihre Prozesse und finden die Hebel mit dem größten Potenzial.</p>
+                <h3>KI-Check für Ihre Fertigung</h3>
+                <p>Ich schaue mir Ihre Abläufe an und sage Ihnen ehrlich, wo KI helfen kann – und wo nicht.</p>
                 <ul class="service-features">
-                    <li>Vor-Ort-Analyse Ihrer Fertigung</li>
-                    <li>Identifikation von Quick Wins</li>
-                    <li>Konkrete Handlungsempfehlungen</li>
-                    <li>ROI-Berechnung für jeden Ansatz</li>
+                    <li>Ich komme zu Ihnen und schaue mir alles vor Ort an</li>
+                    <li>Wir finden gemeinsam heraus, wo der größte Nutzen liegt</li>
+                    <li>Sie bekommen klare Empfehlungen, keine Worthülsen</li>
+                    <li>Ich rechne vor, was sich lohnt und was nicht</li>
                 </ul>
             </div>
             <div class="service-card">
                 <span class="service-number">02</span>
-                <h3>KI-Implementierung</h3>
-                <p>Von der Idee zur laufenden Lösung. Ich begleite Sie durch den gesamten Prozess – ohne Fachchinesisch, mit klarem Fokus.</p>
+                <h3>KI-Einführung begleiten</h3>
+                <p>Wenn Sie sich für KI entscheiden, bleibe ich an Ihrer Seite – bis alles läuft.</p>
                 <ul class="service-features">
-                    <li>Predictive Maintenance für Ihre Maschinen</li>
-                    <li>Qualitätskontrolle mit Bildverarbeitung</li>
-                    <li>Prozessoptimierung mit KI</li>
-                    <li>Integration in bestehende Systeme</li>
+                    <li>Maschinenüberwachung: Probleme erkennen, bevor sie teuer werden</li>
+                    <li>Qualitätskontrolle: Fehler automatisch finden</li>
+                    <li>Abläufe verbessern: Zeit und Geld sparen</li>
+                    <li>Alles passt zu Ihren bestehenden Systemen</li>
                 </ul>
             </div>
             <div class="service-card">
                 <span class="service-number">03</span>
-                <h3>Mitarbeiter-Workshops</h3>
-                <p>KI-Einführung gelingt nur mit dem Team. Ich hole Ihre Mitarbeiter ab – von der Skepsis zur Begeisterung.</p>
+                <h3>Ihr Team mitnehmen</h3>
+                <p>KI funktioniert nur, wenn Ihre Leute mitmachen. Ich erkläre es so, dass es jeder versteht.</p>
                 <ul class="service-features">
-                    <li>KI-Grundlagen verständlich erklärt</li>
-                    <li>Hands-on: ChatGPT & Co. im Arbeitsalltag</li>
-                    <li>Ängste abbauen, Chancen aufzeigen</li>
-                    <li>Praxisübungen mit echten Use Cases</li>
+                    <li>Was KI ist und was sie kann – ohne Fachchinesisch</li>
+                    <li>Wie man ChatGPT und Co. im Arbeitsalltag nutzt</li>
+                    <li>Bedenken ernst nehmen, Chancen aufzeigen</li>
+                    <li>Übungen mit echten Beispielen aus der Fertigung</li>
                 </ul>
             </div>
             <div class="service-card">
                 <span class="service-number">04</span>
-                <h3>KI-Grundkurs für Jedermann</h3>
-                <p>Sie wollen KI verstehen – ohne Informatik-Studium? Mein Grundkurs macht Sie fit für die KI-Zukunft.</p>
+                <h3>KI-Grundkurs für Einsteiger</h3>
+                <p>Sie wollen verstehen, was KI ist? Ich erkläre es so, dass Sie mitreden können.</p>
                 <ul class="service-features">
-                    <li>Was ist KI wirklich?</li>
-                    <li>Praktische Anwendungen im Alltag</li>
-                    <li>Tools die sofort helfen</li>
+                    <li>Was steckt wirklich hinter dem Begriff KI?</li>
+                    <li>Was kann man damit im Alltag anfangen?</li>
+                    <li>Welche Werkzeuge gibt es und wie nutzt man sie?</li>
                     <li>Keine Vorkenntnisse nötig</li>
                 </ul>
             </div>
@@ -1049,33 +1016,34 @@
     <section id="warum" class="usp-section">
         <div class="usp-content">
             <div class="usp-text">
-                <span class="section-tag">// Warum JAZUKI</span>
+                <span class="section-tag">// Warum ich</span>
                 <h2>40 Jahre Fertigung.<br><span>Jetzt mit KI.</span></h2>
                 <p>
-                    Ich habe an der Drehmaschine gestanden, Schichten geleitet, einen Fertigungsbetrieb 
-                    20 Jahre lang geführt. Ich weiß, wie Späne fliegen, wie Termine drücken, 
-                    wie ein Team funktioniert.
+                    Ich habe an der Drehmaschine gestanden, Schichten geleitet und 
+                    20 Jahre lang meinen eigenen Fertigungsbetrieb geführt. 
+                    Ich weiß, wie es ist, wenn Termine drücken und Maschinen ausfallen.
                 </p>
                 <p>
-                    Jetzt bringe ich dieses Wissen mit KI zusammen. Nicht als Theoretiker, 
-                    sondern als jemand, der beide Welten versteht.
+                    Jetzt bringe ich dieses Wissen mit KI zusammen. Nicht als jemand, 
+                    der aus Büchern gelernt hat, sondern als einer, der selbst 
+                    an der Maschine stand.
                 </p>
                 <ul class="usp-list">
                     <li>
                         <span class="check">✓</span>
-                        <span>Von der Maschine in die Beratung – echter Praxisbezug</span>
+                        <span>Ich kenne die Fertigung aus eigener Erfahrung</span>
                     </li>
                     <li>
                         <span class="check">✓</span>
-                        <span>Ich spreche die Sprache Ihrer Mitarbeiter</span>
+                        <span>Ich rede so, dass Ihre Mitarbeiter es verstehen</span>
                     </li>
                     <li>
                         <span class="check">✓</span>
-                        <span>Fokus auf Drehereien, Fräsereien, Stanzbetriebe</span>
+                        <span>Mein Schwerpunkt: Drehereien, Fräsereien, Stanzbetriebe</span>
                     </li>
                     <li>
                         <span class="check">✓</span>
-                        <span>Lösungen die sich rechnen – garantiert</span>
+                        <span>Ich empfehle nur, was sich auch rechnet</span>
                     </li>
                 </ul>
             </div>
@@ -1083,15 +1051,15 @@
                 <div class="usp-card-stack">
                     <div class="usp-floating-card card-1">
                         <h4>// Erfahrung</h4>
-                        <p>20 Jahre eigener Fertigungsbetrieb</p>
+                        <p>20 Jahre eigener Betrieb</p>
                     </div>
                     <div class="usp-floating-card card-2">
-                        <h4>// Praxis</h4>
-                        <p>Vom Dreher zum KI-Berater</p>
+                        <h4>// Herkunft</h4>
+                        <p>Vom Dreher zum Berater</p>
                     </div>
                     <div class="usp-floating-card card-3">
                         <h4>// Fokus</h4>
-                        <p>KMU im produzierenden Gewerbe</p>
+                        <p>Mittelständische Fertigung</p>
                     </div>
                 </div>
             </div>
@@ -1100,69 +1068,42 @@
 
     <!-- CTA Section -->
     <section class="cta-section">
-        <h2>Bereit für KI in Ihrer Fertigung?</h2>
+        <h2>Neugierig geworden?</h2>
         <p>
-            Lassen Sie uns in einem kostenlosen Erstgespräch herausfinden, 
-            wo KI bei Ihnen den größten Hebel hat.
+            Schreiben Sie mir oder rufen Sie an. Wir reden unverbindlich darüber, 
+            ob und wie KI in Ihrer Fertigung helfen kann.
         </p>
         <a href="#kontakt" class="btn-primary">
-            Jetzt Termin vereinbaren
+            Kontakt aufnehmen
             <span>→</span>
         </a>
     </section>
 
     <!-- Contact Section -->
     <section id="kontakt" class="contact-section">
-        <div class="contact-grid">
-            <div class="contact-info">
-                <h2>Kontakt aufnehmen</h2>
-                <p>
-                    Erzählen Sie mir von Ihrer Fertigung. In einem unverbindlichen Gespräch 
-                    finden wir heraus, ob und wie KI Ihnen helfen kann.
-                </p>
-                <div class="contact-details">
-                    <div class="contact-item">
-                        <div class="contact-item-icon">✉</div>
-                        <div class="contact-item-text">
-                            <h4>E-Mail</h4>
-                            <a href="mailto:info@jazuki.de">info@jazuki.de</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-item-icon">📞</div>
-                        <div class="contact-item-text">
-                            <h4>Telefon</h4>
-                            <a href="tel:+4915123456789">+49 151 234 567 89</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-item-icon">📍</div>
-                        <div class="contact-item-text">
-                            <h4>Standort</h4>
-                            <p>Villingen-Schwenningen<br>Baden-Württemberg</p>
-                        </div>
-                    </div>
+        <div class="contact-content">
+            <h2>So erreichen Sie mich</h2>
+            <p>
+                Erzählen Sie mir von Ihrem Betrieb. In einem ersten Gespräch finden wir heraus, 
+                ob ich der Richtige für Sie bin.
+            </p>
+            <div class="contact-cards">
+                <div class="contact-card">
+                    <div class="contact-card-icon">✉</div>
+                    <h4>E-Mail</h4>
+                    <a href="mailto:post@jazuki.de">post@jazuki.de</a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-card-icon">📞</div>
+                    <h4>Telefon</h4>
+                    <a href="tel:+4915123456789">+49 151 234 567 89</a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-card-icon">📍</div>
+                    <h4>Standort</h4>
+                    <p>Villingen-Schwenningen</p>
                 </div>
             </div>
-            <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="company">Unternehmen</label>
-                    <input type="text" id="company" name="company">
-                </div>
-                <div class="form-group">
-                    <label for="email">E-Mail</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Nachricht</label>
-                    <textarea id="message" name="message" placeholder="Erzählen Sie mir kurz von Ihrer Fertigung und was Sie interessiert..."></textarea>
-                </div>
-                <button type="submit" class="form-submit">Nachricht senden</button>
-            </form>
         </div>
     </section>
 
@@ -1170,7 +1111,39 @@
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
-                <span class="logo-main">JAZUKI</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+                  <defs>
+                    <linearGradient id="footerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#00f0ff"/>
+                      <stop offset="100%" style="stop-color:#7b61ff"/>
+                    </linearGradient>
+                    <linearGradient id="footerNetzGrad" gradientUnits="userSpaceOnUse" x1="7" y1="45" x2="83" y2="45">
+                      <stop offset="0%" style="stop-color:#00f0ff"/>
+                      <stop offset="100%" style="stop-color:#7b61ff"/>
+                    </linearGradient>
+                  </defs>
+                  <g stroke="url(#footerNetzGrad)" stroke-width="2" fill="none" stroke-linecap="round">
+                    <ellipse cx="45" cy="45" rx="38" ry="32"/>
+                    <circle cx="25" cy="35" r="5"/>
+                    <circle cx="25" cy="55" r="5"/>
+                    <circle cx="45" cy="25" r="5"/>
+                    <circle cx="45" cy="45" r="6" stroke-width="2.5"/>
+                    <circle cx="45" cy="65" r="5"/>
+                    <circle cx="65" cy="35" r="5"/>
+                    <circle cx="65" cy="55" r="5"/>
+                    <line x1="30" y1="35" x2="39" y2="27"/>
+                    <line x1="30" y1="35" x2="39" y2="43"/>
+                    <line x1="30" y1="55" x2="39" y2="47"/>
+                    <line x1="30" y1="55" x2="39" y2="63"/>
+                    <line x1="51" y1="27" x2="60" y2="35"/>
+                    <line x1="51" y1="45" x2="60" y2="37"/>
+                    <line x1="51" y1="45" x2="60" y2="53"/>
+                    <line x1="51" y1="63" x2="60" y2="55"/>
+                  </g>
+                  <g transform="skewX(-8)">
+                    <text x="115" y="60" font-family="Arial Black, Impact, sans-serif" font-size="48" font-weight="900" font-style="italic" fill="url(#footerGrad)">JAZUKI</text>
+                  </g>
+                </svg>
                 <span class="footer-legal">Ein Angebot der PEKLA Unternehmensberatung UG</span>
             </div>
             <div class="footer-links">
@@ -1196,7 +1169,7 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.service-card, .problem-card, .stat').forEach(el => {
+        document.querySelectorAll('.service-card, .problem-card, .stat-card, .contact-card').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
